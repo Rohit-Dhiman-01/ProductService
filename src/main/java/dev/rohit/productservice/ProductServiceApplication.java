@@ -13,15 +13,6 @@ public class ProductServiceApplication implements CommandLineRunner {
 	public static void main(String[] args) {
 		SpringApplication.run(ProductServiceApplication.class, args);
 	}
-	private ProductRepository productRepository;
-	private CategoryRepository categoryRepository;
-	public ProductServiceApplication(
-									 ProductRepository productRepository,
-									 CategoryRepository categoryRepository
-									){
-		this.productRepository = productRepository;
-		this.categoryRepository = categoryRepository;
-	}
 
 	@Override
 	public void run(String... args) throws Exception {

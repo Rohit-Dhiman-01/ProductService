@@ -9,27 +9,26 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-//@EnableWebSecurity
+@EnableWebSecurity
 public class SecurityConfig {
-//    @Bean
-//    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
-//            throws Exception {
-//                .authorizeHttpRequests((authorize) -> authorize
-//                        .requestMatchers(HttpMethod.GET ,"/products/getProducts").hasAnyRole("user")
-//                        .requestMatchers(HttpMethod.GET,"/products/getProducts/{id}").hasAuthority("user")
-//                        .requestMatchers(HttpMethod.GET,"/products/thirdPartyService").hasAuthority("user")
-//                        .requestMatchers(HttpMethod.GET,"/products/thirdPartyService/{id}").hasAuthority("user")
-//                        .anyRequest().hasAnyAuthority("admin")
-//                          .anyRequest().hasAnyRole("admin")
-//                          .anyRequest().hasRole("admin")
-//                )
-                // Form login handles the redirect to the login page from the
-                // authorization server filter chain
-//                .formLogin(Customizer.withDefaults());
+    @Bean
+    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
+            throws Exception {
 
-//        http.cors().disable();
-//        http.csrf().disable();
+                http.authorizeHttpRequests((authorize) -> authorize
+                        .requestMatchers("/actuator/health").permitAll()
+                                .anyRequest().authenticated()
+//                                .anyRequest().permitAll()
+                )
+//                 Form login handles the redirect to the login page from the
+//                 authorization server filter chain
+                .formLogin(Customizer.withDefaults())
+                .oauth2ResourceServer((oauth)->oauth.
+                        jwt(Customizer.withDefaults()));
 
-//        return http.build();
-//    }
+        http.cors().disable();
+        http.csrf().disable();
+
+        return http.build();
+    }
 }

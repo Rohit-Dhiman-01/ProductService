@@ -18,7 +18,6 @@ import java.util.UUID;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     Product save(Product entity);
 
-    Product findByIdIs(Long id);
 
     @Query(value = "SELECT * FROM product ORDER BY id DESC", nativeQuery = true)
     List<Product> findAllOrderById();
@@ -36,5 +35,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select p.id, p.title from Product p where p.title = :title and p.id = :id")
     ProductWithTitleAndId getProductWithASpecificTitleAndId2(@Param("title") String title, @Param("id") Long id);
 
-    Page<Product> findByTitleContaining(String title, Pageable pageable);
+    Page<Product> findAllByTitleContaining(String title, Pageable pageable);
 }
