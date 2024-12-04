@@ -47,8 +47,8 @@ public class FakeStoreProductClient {
         FakeStoreProductDTO fakeStoreProductDTO = response.getBody();
 
         if (fakeStoreProductDTO == null) {
-            return null;
-//            throw new NotFoundException("Product with id: " + id + " not found");
+//            return null;
+            throw new NotFoundException("Product with id: " + id + " not found");
         }
 
         return fakeStoreProductDTO;

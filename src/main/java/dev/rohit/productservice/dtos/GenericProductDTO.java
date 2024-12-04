@@ -4,9 +4,11 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
-public class GenericProductDTO{
+public class GenericProductDTO implements Serializable {
     private Long Id;
     @NotNull(message = "title cannot be null")
     private String title;

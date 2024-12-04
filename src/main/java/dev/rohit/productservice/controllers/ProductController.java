@@ -4,7 +4,9 @@ import dev.rohit.productservice.dtos.ExceptionDTO;
 import dev.rohit.productservice.exception.NotFoundException;
 import dev.rohit.productservice.security.JwtData;
 import dev.rohit.productservice.security.TokenValidator;
+import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
@@ -71,7 +73,7 @@ public class ProductController {
 
     @GetMapping("thirdPartyService/{id}")
     public GenericProductDTO getProductById(
-            @RequestHeader(HttpHeaders.AUTHORIZATION) String authToken,
+            @Nullable @RequestHeader(HttpHeaders.AUTHORIZATION) String authToken,
             @PathVariable("id") Long id) throws NotFoundException {
 
         GenericProductDTO genericProductDTO= fakeStoreProductServices.getProductById(id);
