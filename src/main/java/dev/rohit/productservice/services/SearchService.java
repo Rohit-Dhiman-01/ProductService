@@ -3,10 +3,7 @@ package dev.rohit.productservice.services;
 import dev.rohit.productservice.dtos.GenericProductDTO;
 import dev.rohit.productservice.models.Product;
 import dev.rohit.productservice.repositories.ProductRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,7 +18,7 @@ public class SearchService {
     }
 
     public Page<GenericProductDTO> search(String query, int pageSize, int pageNumber){
-        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Pageable pageable = PageRequest.of(pageNumber,pageSize, Sort.by("price"));
         Page<Product> productPage = productRepository
                 .findAllByTitleContaining(query, pageable);
 

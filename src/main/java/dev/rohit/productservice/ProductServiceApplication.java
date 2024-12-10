@@ -6,8 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import dev.rohit.productservice.repositories.CategoryRepository;
 import dev.rohit.productservice.repositories.ProductRepository;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
+@EnableDiscoveryClient
 public class ProductServiceApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {

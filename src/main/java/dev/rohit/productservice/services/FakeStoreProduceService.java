@@ -1,13 +1,10 @@
 package dev.rohit.productservice.services;
 
-import dev.rohit.productservice.dtos.ExceptionDTO;
 import dev.rohit.productservice.thirdPartyClients.dtos.FakeStoreProductDTO;
 import dev.rohit.productservice.exception.NotFoundException;
 import dev.rohit.productservice.thirdPartyClients.fakeStoreClient.FakeStoreProductClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import dev.rohit.productservice.dtos.GenericProductDTO;
@@ -23,17 +20,19 @@ public class FakeStoreProduceService implements ProductServices{
     private RedisTemplate<String, Object> redisTemplate;
     private RestTemplate restTemplate;
 
-    @Autowired
-    public FakeStoreProduceService(FakeStoreProductClient fakeStoreProductClient) {
-        this.fakeStoreProductClient = fakeStoreProductClient;
-    }
-
-    //    @Autowired
-//    public FakeStoreProduceService(RedisTemplate<String, Object> redisTemplate,
-//                                   FakeStoreProductClient fakeStoreProductClient) {
-//        this.redisTemplate = redisTemplate;
+//    @Autowired
+//    public FakeStoreProduceService(FakeStoreProductClient fakeStoreProductClient) {
 //        this.fakeStoreProductClient = fakeStoreProductClient;
 //    }
+
+    @Autowired
+    public FakeStoreProduceService(RedisTemplate<String, Object> redisTemplate,
+                                   FakeStoreProductClient fakeStoreProductClient,
+                                   RestTemplate restTemplate) {
+        this.redisTemplate = redisTemplate;
+        this.fakeStoreProductClient = fakeStoreProductClient;
+        this.restTemplate=restTemplate;
+    }
 
 
 
@@ -41,6 +40,7 @@ public class FakeStoreProduceService implements ProductServices{
 
     @Override
     public GenericProductDTO getProductById(Long id) throws NotFoundException {
+
         GenericProductDTO genericProductDTO = (GenericProductDTO)
                 redisTemplate.opsForValue().get(String.valueOf(id));
 
